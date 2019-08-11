@@ -1,0 +1,35 @@
+# coding: utf-8
+import train
+data_train, data_test, charset = train.load_dataset('data/processed.h5')
+model = train.MoleculeVAE()
+model.create(charset,  latent_rep_size=292)
+
+checkpointer = train.ModelCheckpoint(filepath = 'model.h5',
+                                   verbose = 1,
+                                   save_best_only = True)
+
+reduce_lr = train.ReduceLROnPlateau(monitor = 'val_loss',
+                                  factor = 0.2,
+                                  patience = 3,
+                                  min_lr = 0.0001)
+model.autoencoder.fit( data_train,
+                  data_train,
+                  shuffle = True,
+                  epochs = 20,
+                  batch_size = 600,
+                  callbacks = [checkpointer, reduce_lr],
+                  validation_data = (data_test, data_test)
+            )
+import interpolate
+h5f = interpolate.h5py.File('data/processed.h5' ,'r')
+charset = list(h5f['charset'][:])
+charset = [ x.decode('utf-8') for x in charset ]
+h5f.close()
+import interpolate
+h5f = interpolate.h5py.File('data/processed.h5' ,'r')
+charset = list(h5f['charset'][:])
+charset = [ x.decode('utf-8') for x in charset ]
+h5f.close()
+%save -r keras-molecules_trained_model
+%save -r keras-molecules_trained_model model.autoencoder
+%save -r keras-molecules_trained_model 1-999999
