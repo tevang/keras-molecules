@@ -94,12 +94,23 @@ for result in results:
 python smiles_to_h5.py data/BACE.smi data/BACE.h5
 
 python preprocess.py data/BACE.h5 data/BACE_processed.h5
+```
 
-python train.py data/BACE_processed.h5 data/BACE_model.h5 --epochs 20
+Train a BACE-specific model and encode the SMILES strings to feature vectors.
+
+```bash
+python train.py data/BACE_processed.h5 data/BACE_model.h5 --epochs 1
 
 python sample.py data/BACE_processed.h5 data/BACE_model.h5 --target encoder --save_h5 data/BACE_encoded.h5
 
 ```
+
+Alternatively, use a pre-trained model on a very large dataset to encode BACE SMILES to feature vector form.
+
+```bash
+python sample.py data/BACE_processed.h5 data/model_500k.h5 --target encoder --save_h5 data/BACE_encoded.h5
+```
+
 
 ## Getting the datasets
 
