@@ -19,11 +19,17 @@
 
 ## Requirements
 
+####UPDATE for Python3.6:
+For super easy conda environment creation, use the 'keras-molecules_env.yml' file. You just need to modify the file path under 
+'prefix'. Then do `conda env create -n keras-molecules -f keras-molecules_env.yml`. After that you will have a brand new 
+conda environment suitable to run this autoencoder. To activate it do `conda activate keras-molecules`.
+
+####OLD WAY for Python2.7:
 Install using `pip install -r requirements.txt` or build a docker container in the current directory and tag it as 'keras-molecules': 
 
 `sudo docker build -t keras-molecules .`
 
-#### TODO: fill out Docker installation using Python 3 and the latest TensorFlow and Keras versions
+##### TODO: fill out Docker installation using Python 3 and the latest TensorFlow and Keras versions
 
 The docker container can also be built different TensorFlow binary, for example in order to use GPU:
 
